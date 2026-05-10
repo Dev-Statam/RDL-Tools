@@ -18,7 +18,7 @@
         "gecko": {
             "id": "rdl-tools@steveamat.fr",
             "data_collection_permissions": {
-                "required": ["clipboardWrite"]
+                "required": ["none"]
             }
         }
     },
