@@ -10,15 +10,18 @@
         "32": "icons/rdl-tools-32.png"
     },
 
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "rdl-tools@steveamat.fr"
-        }
-    },
-
     "permissions": [
         "clipboardWrite"
     ],
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "rdl-tools@steveamat.fr",
+            "data_collection_permissions": {
+                "required": ["clipboardWrite"]
+            }
+        }
+    },
 
     "content_scripts": [
         {
