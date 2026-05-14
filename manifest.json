@@ -1,9 +1,10 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "RDL Tools",
-    "version": "1.0",
+    "author": "Steve Amat",
+    "version": "2.0",
 
-    "description": "Extension permettant de copier chaque journée de le presse-papier afin de les coller dans son agenda",
+    "description": "Extension qui ajoute un bouton sur le détail de sa journée de travail permettant de générer un fichier ICS pour l'ajouter à son calendrier. Cette extension est destinée à une utilisation personnelle par son auteur et n'est pas destinée à être publier ni distribuée.",
 
     "icons": {
         "16": "icons/rdl-tools-16.png",
@@ -11,7 +12,7 @@
     },
 
     "permissions": [
-        "clipboardWrite"
+        
     ],
 
     "browser_specific_settings": {
@@ -28,5 +29,9 @@
             "matches": ["https://srv-voitures.ml.tcl.fr/roulement"],
             "js": ["scripts/content.js"]
         }
+    ],
+
+    "web_accessible_resources": [
+        "icons/calendrier-24.png"
     ]
 }
