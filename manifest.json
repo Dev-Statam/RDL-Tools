@@ -2,9 +2,9 @@
     "manifest_version": 2,
     "name": "RDL Tools",
     "author": "Steve Amat",
-    "version": "2.0",
+    "version": "2.1",
 
-    "description": "Extension qui ajoute un bouton sur le détail de sa journée de travail permettant de générer un fichier ICS pour l'ajouter à son calendrier. Cette extension est destinée à une utilisation personnelle par son auteur et n'est pas destinée à être publier ni distribuée.",
+    "description": "Extension qui permet de créer des fichiers .ics de ses jours de travail et de rpos afin de les ajouter à son calendrier. Cette extension est destinée à une utilisation personnelle par son auteur et n'est pas destinée à être publier ni distribuée.",
 
     "icons": {
         "16": "icons/rdl-tools-16.png",
@@ -32,6 +32,7 @@
     ],
 
     "web_accessible_resources": [
-        "icons/calendrier-24.png"
+        "icons/calendrier-24.png",
+        "icons/repos-50.png"
     ]
 }
