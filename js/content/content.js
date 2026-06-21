@@ -2,6 +2,7 @@ const content = {
     init() {
         const $calendarButton = calendarButton.createCalendarButton();
         const $restButton = restButton.createRestButton();
+        $restButton.style.display  = 'none';
 
         try {
             utils.$headerActivite.appendChild($calendarButton);
