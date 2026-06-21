@@ -2,13 +2,13 @@
     "manifest_version": 2,
     "name": "RDL Tools",
     "author": "Steve Amat",
-    "version": "2.1",
+    "version": "3.0",
 
-    "description": "Extension qui permet de créer des fichiers .ics de ses jours de travail et de rpos afin de les ajouter à son calendrier. Cette extension est destinée à une utilisation personnelle par son auteur et n'est pas destinée à être publier ni distribuée.",
+    "description": "Extension qui permet de créer des fichiers .ics de ses jours de travail et de repos afin de les ajouter à son calendrier. Cette extension est destinée aux salariés RD Lyon ayant accès à l'appli web Services Voitures En Mobilité.",
 
     "icons": {
-        "16": "icons/rdl-tools-16.png",
-        "32": "icons/rdl-tools-32.png"
+        "16": "assets/rdl-tools-16.png",
+        "32": "assets/rdl-tools-32.png"
     },
 
     "permissions": [
@@ -27,12 +27,22 @@
     "content_scripts": [
         {
             "matches": ["https://srv-voitures.ml.tcl.fr/roulement"],
-            "js": ["scripts/content.js"]
+            "js": [
+                "js/content/scripts/utils.js",
+                "js/content/templates/calendarButton.js",
+                "js/content/templates/restButton.js",
+                "js/content/Classes/ActivityDay.js",
+                "js/content/Classes/RestDay.js",
+                "js/content/scripts/icsGenerator.js",
+                "js/content/scripts/workingDay.js",
+                "js/content/scripts/restingDay.js",
+                "js/content/content.js"
+            ]
         }
     ],
 
     "web_accessible_resources": [
-        "icons/calendrier-24.png",
-        "icons/repos-50.png"
+        "assets/calendrier-24.png",
+        "assets/repos-24.png"
     ]
 }
