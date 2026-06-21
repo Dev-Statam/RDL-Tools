@@ -16,6 +16,8 @@ const content = {
         } catch (error) {
             console.error('[RDL Tools] Erreur lors de l\'ajout du bouton d\'ajout des jours de repos au calendrier : ', error);
         }
+
+        content.mutationObserver($restButton);
     },
 
     _handleCalendarButtonClick(event) {
@@ -51,6 +53,22 @@ const content = {
     async _restDaysToCalendar() {
         const restData = await restingDay.getRestData();
         icsGenerator.generateICSFile(new RestDays(month = restData.month, year = restData.year, restDays = restData.restDays));
+    },
+
+    mutationObserver($element) {
+        $element.style.display = 'none';
+
+        const observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                    $element.style.display = utils.$selectListeMoisElement.style.display === 'none' ? 'none' : 'flex';
+                }
+            }
+        });
+
+        const config = { attributes: true, attributeFilter: ['style'] };
+
+        observer.observe(utils.$selectListeMoisElement, config);
     }
 
 }
