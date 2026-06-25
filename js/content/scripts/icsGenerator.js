@@ -6,7 +6,8 @@ const icsGenerator = {
     async generateICSFile(activityToICS) {
         let fileName;
         if (activityToICS instanceof ActivityDay) {
-            fileName = `journée du ${activityToICS.date}.ics`;
+            fileNameDate = activityToICS.date.split('-')[2] + ' ' + utils.convertDigitMonthToText(activityToICS.date.split('-')[1]) + ' ' + activityToICS.date.split('-')[0];
+            fileName = `journée du ${fileNameDate}.ics`;
         }
 
         if (activityToICS instanceof RestDays) {
@@ -39,11 +40,11 @@ const icsGenerator = {
         ];
 
         if (datas instanceof ActivityDay) {
-            const formatedDate = icsGenerator._dateFormate(datas.date);
+            // const formatedDate = icsGenerator._dateFormate(datas.date);
             const formatedStartTime = datas.startTime.replace('h', ':')
             const formatedEndTime = datas.endTime.replace('h', ':');
-            const startDateAndTime = `${formatedDate}T${formatedStartTime}:0000`;
-            const endDateAndTime = `${formatedDate}T${formatedEndTime}:0000`;
+            const startDateAndTime = `${datas.date}T${formatedStartTime}:0000`;
+            const endDateAndTime = `${datas.date}T${formatedEndTime}:0000`;
 
             icsDatas.push(
                 'BEGIN:VEVENT',

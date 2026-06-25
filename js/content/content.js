@@ -1,5 +1,13 @@
 const content = {
     init() {
+        browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            if (message.type === "activity-json") {
+                content.activityJson = message.payload;
+            }
+            if (message.type === "rest-json") {
+                content.restJson = message.payload;
+            }
+        });
         const $calendarButton = calendarButton.createCalendarButton();
         const $restButton = restButton.createRestButton();
         $restButton.style.display  = 'none';
@@ -23,12 +31,7 @@ const content = {
 
     _handleCalendarButtonClick(event) {
         event.preventDefault();
-        if (utils.$titleActiviteJournee 
-            && utils.$listeActivitesJournee
-            && utils.$titleActiviteJournee.innerText != null
-            && utils.$titleActiviteJournee.innerText != ''
-            && utils.$listeActivitesJournee.innerHTML != null
-            && utils.$listeActivitesJournee.innerHTML != '' ) {
+        if (content.activityJson && content.activityJson.Activites.length > 0) {
 
             content._workingDayToCalendar();
 
@@ -39,7 +42,7 @@ const content = {
 
     _handleRestButtonClick(event) {
         event.preventDefault();
-        if (utils.$tableauRoulementElement.querySelectorAll('table').length > 0) {
+        if (content.restJson && content.restJson.length > 0) {
             content._restDaysToCalendar();
         } else {
             console.warn('[RDL Tools] Impossible de récupérer les informations du tableau de roulement. Veuillez vous assurer que l\'élément nécessaire est présent et contient des données valides.');
@@ -47,12 +50,12 @@ const content = {
     },
 
     async _workingDayToCalendar() {
-        const activityData = await workingDay.getActivityData();
+        const activityData = await workingDay.getActivityData(content.activityJson);
         icsGenerator.generateICSFile(new ActivityDay(activityData));
     },
 
     async _restDaysToCalendar() {
-        const restData = await restingDay.getRestData();
+        const restData = await restingDay.getRestData(content.restJson);
         icsGenerator.generateICSFile(new RestDays(month = restData.month, year = restData.year, restDays = restData.restDays));
     },
 
@@ -71,7 +74,6 @@ const content = {
 
         observer.observe(utils.$selectListeMoisElement, config);
     }
-
 }
 
 content.init();

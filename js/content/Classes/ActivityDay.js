@@ -5,6 +5,7 @@ class ActivityDay {
     constructor(parameters) {
         this.line = parameters.line;
         this.service = parameters.service;
+        this.codeCDM = parameters.codeCDM;
         this.schedule = parameters.schedule;
         this.date = parameters.date;
         this.startTime = parameters.startTime;

@@ -1,27 +1,16 @@
 const workingDay = {
-    getActivityData() {
+    getActivityData(activityJson) {
         let activityData = {};
-        const headerServiceData = utils.$titleActiviteJournee.innerHTML;
-        const listeActivitesJourneeData = utils.$listeActivitesJournee.childNodes[0].childNodes[0];
-
+        
         try {
-            activityData.service = workingDay._getService(headerServiceData);
-            activityData.line = workingDay._getLine(headerServiceData);
-            activityData.codeCDM = workingDay._getCodeCDM(headerServiceData);
-            activityData.schedule = workingDay._getSchedule(headerServiceData);
-            activityData.date = workingDay._getDate(headerServiceData);
-            activityData.startTime = workingDay._getStartTime(listeActivitesJourneeData);
-            activityData.endTime = workingDay._getEndTime(listeActivitesJourneeData);
-
-            let activityDetails = [];
-            if (listeActivitesJourneeData) {
-                listeActivitesJourneeData.childNodes.forEach((element) => {
-                    if (element != listeActivitesJourneeData.childNodes[0]) {
-                        activityDetails.push(workingDay._getAndCleanActivity(element));
-                    }
-                })
-            }
-            activityData.activityDetails = activityDetails;
+            activityData.service = workingDay._getService(activityJson);
+            activityData.line = workingDay._getLine(activityJson);
+            activityData.codeCDM = workingDay._getCodeCDM(activityJson);
+            activityData.schedule = workingDay._getSchedule(activityJson);
+            activityData.date = workingDay._getDate(activityJson);
+            activityData.startTime = workingDay._getStartTime(activityJson);
+            activityData.endTime = workingDay._getEndTime(activityJson);
+            activityData.activityDetails = workingDay._getActivityDetails(activityJson.Activites);           
 
         } catch (error) {
             console.error('[RDL Tools] Erreur lors de la récupération des données de la journée : ', error);
@@ -31,53 +20,56 @@ const workingDay = {
 
     },
 
-    _getLine(headerServiceData) {
-        return headerServiceData.split('<br>')[2].split(/\s+/)[1].split('-')[0].trim();
+    _getLine(activityJson) {
+        return activityJson.Activites[0].LIGNE_ACTIVITE;
     },
 
-    _getService(headerServiceData) {
-        return headerServiceData.split('<br>')[2].split(/\s+/)[1].split('-')[1].trim();
+    _getService(activityJson) {
+        return activityJson.Activites[0].CODE_SERVICE.split('-')[1].trim();
     },
 
-    _getCodeCDM(headerServiceData) {
-        return headerServiceData.split('<br>')[2].split(/\s+/)[0].trim();
+    _getCodeCDM(activityJson) {
+        return activityJson.Activites[0].CODE_UNITE_HORAIRE;
     },
 
-    _getSchedule(headerServiceData) {
-        return headerServiceData.split('<br>')[2].split(/\s+/)[3].trim();
+    _getSchedule(activityJson) {
+        return activityJson.Titre.split(' - ').at(-1);
     },
 
-    _getDate(headerServiceData) {
-        return headerServiceData.split('<br>')[0].split(/\s+/).slice(-3).join(' ').trim();
+    _getDate(activityJson) {
+        return activityJson.Activites[0].DATE_JOUR_TRAVAIL;
     },
 
-    _getStartTime(listeActivitesJourneeData) {
-        const startActivity = listeActivitesJourneeData.childNodes[1];
-        let startIndex = 3;
-        if (startActivity.innerText && startActivity.childNodes[0].hasAttribute('colspan')) {
-            startIndex = 1;
-        }
-        return startActivity.childNodes[startIndex].innerText.split(/\s+/)[0];
+    _getStartTime(activityJson) {
+        return activityJson.Activites[0].HEURE_DEB_ACT;
     },
 
-    _getEndTime(listeActivitesJourneeData) {
-        const endActivity = listeActivitesJourneeData.lastChild;
-        return endActivity.lastChild.previousSibling.innerText.split(/\s+/)[0];
+    _getEndTime(activityJson) {
+        return activityJson.Activites.at(-1).HEURE_FIN_ACT;
     },
 
-    _getAndCleanActivity(activityToClean) {
-        let texte = null;
-        activityToClean.childNodes.forEach((element) => {
-            if (element.innerText && element.hasAttribute('colspan')) {
-                texte = texte ? texte + '\n' + utils.textConverter(element.innerText) : utils.textConverter(element.innerText);
-            } else if (element.innerText && element == activityToClean.childNodes[2] && !activityToClean.childNodes[0].hasAttribute('colspan')) {
-                texte = texte ? texte + ' ' + utils.textConverter(element.innerText) : utils.textConverter(element.innerText);
-            } else if (element.innerText) {
-                element.innerText.split(/\s+/).forEach((mot) => {
-                    texte = texte ? texte + ' ' + utils.textConverter(mot) : utils.textConverter(mot);        
+    _getActivityDetails(activityJson) {
+        let activityDetails = [];
+            if (activityJson.length !== 0) {
+                activityJson.forEach((element) => {
+                    let partialActivity = null;
+                    if (element.DESC_ACTIVITE === 'Opération du véhicule') {
+                        partialActivity = partialActivity ? partialActivity + '\n' + element.LIGNE_ACTIVITE + '-' + element.VOITURE.replace(/\s/g, ''): element.LIGNE_ACTIVITE + '-' + element.VOITURE.replace(/\s/g, '');
+                    } else {
+                        partialActivity = partialActivity ? partialActivity + '\n' + utils.textConverter(element.DESC_ACTIVITE) : utils.textConverter(element.DESC_ACTIVITE);
+                    }
+                    partialActivity += ' ' + element.HEURE_DEB_ACT + '-';
+                    element.LIEU_DEB_ACT.trim().split(/\s/g).forEach((place) => {
+                        partialActivity += utils.textConverter(place);
+                    })
+                    partialActivity += ' ' + element.HEURE_FIN_ACT + '-';
+                    element.LIEU_FIN_ACT.trim().split(/\s/g).forEach((place) => {
+                        partialActivity += utils.textConverter(place);
+                    })
+
+                    activityDetails.push(partialActivity);
                 })
             }
-        })
-        return texte.replace(/\s+/g, ' ').trim();    
+        return activityDetails;
     }
 }

@@ -1,10 +1,10 @@
 const utils = {
-    $modalVacationsElement: document.getElementById('modalVacations'),
+    // $modalVacationsElement: document.getElementById('modalVacations'),
+    // $listeActivitesJournee: document.getElementById('listeActivitesJournee'),
+    // $titleActiviteJournee: document.getElementById('titleActiviteJournee'),
+    // $tableauRoulementElement: document.getElementById('tableau_roulement_id'),
     $selectListeMoisElement: document.getElementById('liste_mois_tr_id'),
     $headerActivite: document.getElementById('header_Activite'),
-    $listeActivitesJournee: document.getElementById('listeActivitesJournee'),
-    $titleActiviteJournee: document.getElementById('titleActiviteJournee'),
-    $tableauRoulementElement: document.getElementById('tableau_roulement_id'),
     arrayMonthsConvert: {
         janvier: '01',
         février: '02',

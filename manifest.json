@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "RDL Tools",
     "author": "Steve Amat",
     "version": "3.0",
@@ -12,7 +12,13 @@
     },
 
     "permissions": [
-        
+        "webRequest",
+        "webRequestBlocking",
+        "webRequestFilterResponse"
+    ],
+
+    "host_permissions": [
+        "https://srv-voitures.ml.tcl.fr/api/*"
     ],
 
     "browser_specific_settings": {
@@ -22,6 +28,11 @@
                 "required": ["none"]
             }
         }
+    },
+
+    "background": {
+        "scripts": ["js/background/background.js"],
+        "service_worker": "js/background/background.js"
     },
 
     "content_scripts": [
@@ -42,7 +53,12 @@
     ],
 
     "web_accessible_resources": [
-        "assets/calendrier-24.png",
-        "assets/repos-24.png"
+        {
+            "resources": [
+                "assets/calendrier-24.png",
+                "assets/repos-24.png"
+            ],
+            "matches": ["https://srv-voitures.ml.tcl.fr/*"]
+        }
     ]
 }
