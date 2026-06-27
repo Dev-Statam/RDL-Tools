@@ -1,9 +1,5 @@
 const utils = {
     extensionApi: typeof browser !== 'undefined' ? browser : chrome,
-    // $modalVacationsElement: document.getElementById('modalVacations'),
-    // $listeActivitesJournee: document.getElementById('listeActivitesJournee'),
-    // $titleActiviteJournee: document.getElementById('titleActiviteJournee'),
-    // $tableauRoulementElement: document.getElementById('tableau_roulement_id'),
     $selectListeMoisElement: document.getElementById('liste_mois_tr_id'),
     $headerActivite: document.getElementById('header_Activite'),
     arrayMonthsConvert: {
@@ -20,7 +16,7 @@ const utils = {
         novembre: '11',
         décembre: '12'
     },
-    arrayAvtivityConvert: {
+    arrayActivityConvert: {
         '(Aller)': null,
         '(Retour)': null,
         '(Sortie)': null,
@@ -38,11 +34,11 @@ const utils = {
     },
     restCode: ['RN', 'RHE', 'HEC', 'CA', 'RX', 'FL', 'LN'],
     textConverter(textToConvert) {
-        if (utils.arrayAvtivityConvert[textToConvert] === null || utils.arrayAvtivityConvert[textToConvert] === '') {
+        if (utils.arrayActivityConvert[textToConvert] === null || utils.arrayActivityConvert[textToConvert] === '') {
             return '';
         }
 
-        return utils.arrayAvtivityConvert[textToConvert] || textToConvert;
+        return utils.arrayActivityConvert[textToConvert] || textToConvert;
     },
     convertDigitMonthToText(monthDigit) {
         for (const [monthText, monthNumber] of Object.entries(utils.arrayMonthsConvert)) {

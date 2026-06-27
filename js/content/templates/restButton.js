@@ -14,7 +14,6 @@ const restButton = {
 
     _createRestImage() {
         const $restImage = document.createElement('i');
-        // $restImage.classList.add('tim-icons', 'bi-house-check', 'my-auto');
         const $svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         $svgElement.setAttribute('height', '28');
         $svgElement.setAttribute('viewBox', '0 0 28 28');

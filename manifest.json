@@ -46,7 +46,6 @@
         {
             "resources": [
                 "assets/calendrier-24.png",
-                "assets/repos-24.png",
                 "js/content/scripts/pageNetworkInterceptor.js"
             ],
             "matches": ["https://srv-voitures.ml.tcl.fr/*"]
