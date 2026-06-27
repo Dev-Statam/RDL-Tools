@@ -17,7 +17,7 @@
 
     "browser_specific_settings": {
         "gecko": {
-            "id": "rdl-toolsV2@steveamat.fr",
+            "id": "rdl-toolsV3@devstatam.fr",
             "data_collection_permissions": {
                 "required": ["none"]
             }
