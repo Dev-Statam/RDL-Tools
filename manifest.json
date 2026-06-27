@@ -11,12 +11,6 @@
         "32": "assets/rdl-tools-32.png"
     },
 
-    "permissions": [
-        "webRequest",
-        "webRequestBlocking",
-        "webRequestFilterResponse"
-    ],
-
     "host_permissions": [
         "https://srv-voitures.ml.tcl.fr/api/*"
     ],
@@ -30,15 +24,11 @@
         }
     },
 
-    "background": {
-        "scripts": ["js/background/background.js"],
-        "service_worker": "js/background/background.js"
-    },
-
     "content_scripts": [
         {
             "matches": ["https://srv-voitures.ml.tcl.fr/roulement"],
             "js": [
+                "js/content/scripts/networkBridge.js",
                 "js/content/scripts/utils.js",
                 "js/content/templates/calendarButton.js",
                 "js/content/templates/restButton.js",
@@ -56,7 +46,8 @@
         {
             "resources": [
                 "assets/calendrier-24.png",
-                "assets/repos-24.png"
+                "assets/repos-24.png",
+                "js/content/scripts/pageNetworkInterceptor.js"
             ],
             "matches": ["https://srv-voitures.ml.tcl.fr/*"]
         }

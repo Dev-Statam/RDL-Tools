@@ -1,4 +1,5 @@
 const utils = {
+    extensionApi: typeof browser !== 'undefined' ? browser : chrome,
     // $modalVacationsElement: document.getElementById('modalVacations'),
     // $listeActivitesJournee: document.getElementById('listeActivitesJournee'),
     // $titleActiviteJournee: document.getElementById('titleActiviteJournee'),
@@ -50,5 +51,8 @@ const utils = {
             }
         }
         return '';
+    },
+    getRuntimeURL(path) {
+        return utils.extensionApi.runtime.getURL(path);
     }
 }

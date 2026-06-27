@@ -1,13 +1,19 @@
 const content = {
     init() {
-        browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-            if (message.type === "activity-json") {
-                content.activityJson = message.payload;
+        const extensionApi = typeof browser !== 'undefined' ? browser : chrome;
+        if (extensionApi.runtime && extensionApi.runtime.onMessage) {
+            extensionApi.runtime.onMessage.addListener((message) => {
+                content._updateJsonCache(message);
+            });
+        }
+
+        window.addEventListener('message', (event) => {
+            if (!networkBridge.isFromBridge(event)) {
+                return;
             }
-            if (message.type === "rest-json") {
-                content.restJson = message.payload;
-            }
+            content._updateJsonCache(event.data);
         });
+
         const $calendarButton = calendarButton.createCalendarButton();
         const $restButton = restButton.createRestButton();
         $restButton.style.display  = 'none';
@@ -27,6 +33,15 @@ const content = {
         }
 
         content.mutationObserver($restButton);
+    },
+
+    _updateJsonCache(message) {
+        if (message.type === "activity-json") {
+            content.activityJson = message.payload;
+        }
+        if (message.type === "rest-json") {
+            content.restJson = message.payload;
+        }
     },
 
     _handleCalendarButtonClick(event) {
