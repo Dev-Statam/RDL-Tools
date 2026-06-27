@@ -1,4 +1,9 @@
 (() => {
+    if (window.__rdlToolsInterceptorInstalled) {
+        return;
+    }
+    window.__rdlToolsInterceptorInstalled = true;
+
     const BRIDGE_SOURCE = 'rdl-tools-page-bridge';
     const ENDPOINTS = {
         activity: '/api/activitesJournee/',
