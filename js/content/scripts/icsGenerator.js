@@ -1,3 +1,16 @@
+/**
+ * Module de génération et téléchargement de fichiers ICS (calendrier).
+ * 
+ * Responsabilités :
+ * - Conversion des données d'activité (ActivityDay) en format ICS (iCalendar)
+ * - Conversion des jours de repos (RestDays) en format ICS
+ * - Génération et téléchargement du fichier ICS au format iCalendar 2.0
+ * - Formatage des dates et heures selon la norme RFC 5545
+ * 
+ * Méthodes publiques :
+ * - generateICSFile(activityToICS) : Génère et lance le téléchargement d'un fichier ICS
+ *   Accepte ActivityDay (activité de travail) ou RestDays (jours de repos)
+ */
 const icsGenerator = {
     /**
      * 
@@ -6,7 +19,8 @@ const icsGenerator = {
     async generateICSFile(activityToICS) {
         let fileName;
         if (activityToICS instanceof ActivityDay) {
-            fileNameDate = activityToICS.date.split('-')[2] + ' ' + utils.convertDigitMonthToText(activityToICS.date.split('-')[1]) + ' ' + activityToICS.date.split('-')[0];
+            const [year, month, day] = activityToICS.date.split('-');
+            const fileNameDate = `${day} ${utils.convertDigitMonthToText(month)} ${year}`;
             fileName = `journée du ${fileNameDate}.ics`;
         }
 
@@ -33,25 +47,30 @@ const icsGenerator = {
      */
     _generateICSData(datas) {
         const escape = (s) => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+        const formatICSDateTime = (dateStr) => dateStr.replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+        const generateUID = (identifier) => `${identifier}-${Math.random().toString(36).slice(2)}@rdltools3.fr`;
+        
         let icsDatas = [
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
-            'PRODID:-//RDL Tools//FR'
+            'PRODID:-//RDL Tools//FR',
+            'CALSCALE:GREGORIAN',
+            icsGenerator._getVTimezoneComponent()
         ];
 
         if (datas instanceof ActivityDay) {
-            // const formatedDate = icsGenerator._dateFormate(datas.date);
-            const formatedStartTime = datas.startTime.replace('h', ':')
+            const formatedStartTime = datas.startTime.replace('h', ':');
             const formatedEndTime = datas.endTime.replace('h', ':');
             const startDateAndTime = `${datas.date}T${formatedStartTime}:0000`;
             const endDateAndTime = `${datas.date}T${formatedEndTime}:0000`;
+            const dtstamp = formatICSDateTime(new Date().toISOString().replace('Z', ''));
 
             icsDatas.push(
                 'BEGIN:VEVENT',
-                `DTSTART:${startDateAndTime.replace(/[-:]/g, '').replace(/\.\d{3}/, '')}`,
-                `DTEND:${endDateAndTime.replace(/[-:]/g, '').replace(/\.\d{3}/, '')}`,
-                `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '').replace('Z','')}`,
-                `UID:${startDateAndTime}-${Math.random().toString(36).slice(2)}@rdltools.fr`,
+                `DTSTART;TZID=Europe/Paris:${formatICSDateTime(startDateAndTime)}`,
+                `DTEND;TZID=Europe/Paris:${formatICSDateTime(endDateAndTime)}`,
+                `DTSTAMP:${dtstamp}Z`,
+                `UID:${generateUID(startDateAndTime)}`,
                 `SUMMARY:${escape(datas.line)} - ${escape(datas.service)} (${escape(datas.schedule)})`,
                 `DESCRIPTION:${escape(datas.activityDetails.join('\r\n'))}`,
                 'END:VEVENT'
@@ -59,7 +78,7 @@ const icsGenerator = {
         }
 
         if (datas instanceof RestDays) {
-            const dtStamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '').replace('Z','');
+            const dtStamp = formatICSDateTime(new Date().toISOString().replace('Z', '')) + 'Z';
             
             datas.restDays.forEach((restDay) => {
                 const dateEvent = datas.year + datas.month + restDay.date;
@@ -68,7 +87,7 @@ const icsGenerator = {
                     `DTSTART;VALUE=DATE:${dateEvent}`,
                     `DTEND;VALUE=DATE:${icsGenerator._getNextDay(dateEvent)}`,
                     `DTSTAMP:${dtStamp}`,
-                    `UID:${dateEvent}-${Math.random().toString(36).slice(2)}@rdltools.fr`,
+                    `UID:${generateUID(dateEvent)}`,
                     `SUMMARY:${escape(restDay.restCode)}`,
                     'END:VEVENT'
                 );
@@ -81,18 +100,39 @@ const icsGenerator = {
     },
 
     /**
-     * Formate une date du format "DD MMMM YYYY" (ex. "10 juin 2024") au format "YYYY-MM-DD" (ex. "2024-06-10").
-     * @param {string} date 
-     * @returns {string} La date formatée au format ISO (YYYY-MM-DD)
+     * Génère le composant VTIMEZONE pour Europe/Paris.
+     * @returns {string} Le composant VTIMEZONE formaté
      */
-    _dateFormate(date) {
-        // Séparer le jour, le mois et l'année
-        const [day, monthName, year] = date.toLowerCase().split(' ');
-
-        // Retourner au format ISO (YYYY‑MM‑DD)
-        return `${year}-${utils.arrayMonthsConvert[monthName]}-${day.padStart(2, '0')}`;
+    _getVTimezoneComponent() {
+        const vtimezone = [
+            'BEGIN:VTIMEZONE',
+            'TZID:Europe/Paris',
+            'BEGIN:STANDARD',
+            'TZOFFSETFROM:+0200',
+            'TZOFFSETTO:+0100',
+            'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+            'DTSTART:19961027T030000',
+            'TZNAME:CET',
+            'END:STANDARD',
+            'BEGIN:DAYLIGHT',
+            'TZOFFSETFROM:+0100',
+            'TZOFFSETTO:+0200',
+            'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+            'DTSTART:19810329T020000',
+            'TZNAME:CEST',
+            'END:DAYLIGHT',
+            'END:VTIMEZONE'
+        ].join('\r\n');
+        
+        return vtimezone;
     },
 
+    /**
+     * Calcule le jour suivant au format ICS (YYYYMMDD).
+     * Utilisé pour la fin des événements all-day (jours de repos).
+     * @param {string} dateString Format YYYYMMDD
+     * @returns {string} Le jour suivant au format YYYYMMDD
+     */
     _getNextDay(dateString) {
         const year = parseInt(dateString.slice(0, 4), 10);
         const month = parseInt(dateString.slice(4, 6), 10) - 1;
@@ -103,8 +143,5 @@ const icsGenerator = {
         const pad = n => String(n).padStart(2, '0');
 
         return `${next.getUTCFullYear()}${pad(next.getUTCMonth() + 1)}${pad(next.getUTCDate())}`;
-    
     }
-
-
 }

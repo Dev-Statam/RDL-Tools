@@ -1,3 +1,15 @@
+/**
+ * Module d'extraction des données d'activité (journée de travail).
+ * 
+ * Responsabilités :
+ * - Extraction des informations de la journée de travail depuis le JSON de l'API
+ * - Récupération du service, ligne, horaire, date et détails des activités
+ * - Formatage des détails des activités avec conversion de codes et lieux
+ * 
+ * Méthodes publiques :
+ * - getActivityData(activityJson) : Extrait et retourne l'ensemble des données de la journée
+ *   (service, ligne, horaire, date, heures, détails des activités)
+ */
 const workingDay = {
     getActivityData(activityJson) {
         let activityData = {};
@@ -50,26 +62,32 @@ const workingDay = {
 
     _getActivityDetails(activityJson) {
         let activityDetails = [];
-            if (activityJson.length !== 0) {
-                activityJson.forEach((element) => {
-                    let partialActivity = null;
-                    if (element.DESC_ACTIVITE === 'Opération du véhicule') {
-                        partialActivity = partialActivity ? partialActivity + '\n' + element.LIGNE_ACTIVITE + '-' + element.VOITURE.replace(/\s/g, ''): element.LIGNE_ACTIVITE + '-' + element.VOITURE.replace(/\s/g, '');
-                    } else {
-                        partialActivity = partialActivity ? partialActivity + '\n' + utils.textConverter(element.DESC_ACTIVITE) : utils.textConverter(element.DESC_ACTIVITE);
-                    }
-                    partialActivity += ' ' + element.HEURE_DEB_ACT + '-';
-                    element.LIEU_DEB_ACT.trim().split(/\s/g).forEach((place) => {
-                        partialActivity += utils.textConverter(place);
-                    })
-                    partialActivity += ' ' + element.HEURE_FIN_ACT + '-';
-                    element.LIEU_FIN_ACT.trim().split(/\s/g).forEach((place) => {
-                        partialActivity += utils.textConverter(place);
-                    })
+        if (activityJson.length === 0) {
+            return activityDetails;
+        }
 
-                    activityDetails.push(partialActivity);
-                })
+        activityJson.forEach((element) => {
+            let partialActivity = '';
+
+            if (element.DESC_ACTIVITE === 'Opération du véhicule') {
+                partialActivity = element.LIGNE_ACTIVITE + '-' + element.VOITURE.replace(/\s/g, '');
+            } else {
+                partialActivity = utils.textConverter(element.DESC_ACTIVITE);
             }
+
+            partialActivity += ' ' + element.HEURE_DEB_ACT + '-';
+            partialActivity += element.LIEU_DEB_ACT.trim().split(/\s/g)
+                .map(place => utils.textConverter(place))
+                .join('');
+            
+            partialActivity += ' ' + element.HEURE_FIN_ACT + '-';
+            partialActivity += element.LIEU_FIN_ACT.trim().split(/\s/g)
+                .map(place => utils.textConverter(place))
+                .join('');
+
+            activityDetails.push(partialActivity);
+        });
+
         return activityDetails;
     }
 }

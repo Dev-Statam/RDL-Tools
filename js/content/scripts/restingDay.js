@@ -1,3 +1,15 @@
+/**
+ * Module d'extraction et traitement des jours de repos.
+ * 
+ * Responsabilités :
+ * - Extraction des données de jours de repos depuis le JSON de l'API
+ * - Filtrage des jours selon les codes de service définis (utils.restCode)
+ * - Construction d'objets RestDay avec date et code de repos
+ * 
+ * Méthodes publiques :
+ * - getRestData(restJson) : Extrait les données des jours de repos et retourne un objet
+ *   contenant l'année, le mois et la liste des jours de repos
+ */
 const restingDay = {
     getRestData(restJson) {
         let restDatas = {};

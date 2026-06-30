@@ -1,8 +1,14 @@
 const content = {
-    init() {
-        const extensionApi = typeof browser !== 'undefined' ? browser : chrome;
-        if (extensionApi.runtime && extensionApi.runtime.onMessage) {
-            extensionApi.runtime.onMessage.addListener((message) => {
+    extensionApi: null,
+
+    async init() {
+        content.extensionApi = utils.extensionApi;
+        surveyorActivities.init(content.extensionApi);
+        await surveyorActivities.sanitizeStoredActivities();
+        await surveyorActivities.surveyTableauRoulement();
+
+        if (content.extensionApi.runtime && content.extensionApi.runtime.onMessage) {
+            content.extensionApi.runtime.onMessage.addListener((message) => {
                 content._updateJsonCache(message);
             });
         }
@@ -33,6 +39,13 @@ const content = {
         }
 
         content.mutationObserver($restButton);
+        content._observeActivityClicks();
+    },
+
+    _observeActivityClicks() {
+        document.addEventListener('click', (event) => {
+            surveyorActivities.captureClickedActivity(event.target);
+        }, true);
     },
 
     _updateJsonCache(message) {
@@ -66,7 +79,9 @@ const content = {
 
     async _workingDayToCalendar() {
         const activityData = await workingDay.getActivityData(content.activityJson);
-        icsGenerator.generateICSFile(new ActivityDay(activityData));
+        await icsGenerator.generateICSFile(new ActivityDay(activityData));
+        await surveyorActivities.persistPendingActivity(activityData);
+        await surveyorActivities.surveyTableauRoulement();
     },
 
     async _restDaysToCalendar() {
@@ -77,10 +92,23 @@ const content = {
     mutationObserver($element) {
         $element.style.display = 'none';
 
-        const observer = new MutationObserver((mutationsList) => {
+        // Listener pour les changements d'option du select
+        utils.$selectListeMoisElement.addEventListener('change', async () => {
+            // Laisser du temps à getRoulementToThisMonth() de mettre à jour le contenu du tableau
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await surveyorActivities.surveyTableauRoulement();
+        });
+
+        const observer = new MutationObserver(async (mutationsList) => {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                    $element.style.display = utils.$selectListeMoisElement.style.display === 'none' ? 'none' : 'flex';
+                    const isVisible = utils.$selectListeMoisElement.style.display !== 'none';
+                    $element.style.display = isVisible ? 'flex' : 'none';
+                    
+                    // Si le select vient de devenir visible, surveiller le tableau
+                    if (isVisible) {
+                        await surveyorActivities.surveyTableauRoulement();
+                    }
                 }
             }
         });

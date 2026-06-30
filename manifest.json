@@ -15,6 +15,10 @@
         "https://srv-voitures.ml.tcl.fr/api/*"
     ],
 
+    "permissions": [
+        "storage"
+    ],
+
     "browser_specific_settings": {
         "gecko": {
             "id": "rdl-toolsV3@devstatam.fr",
@@ -32,11 +36,13 @@
                 "js/content/scripts/utils.js",
                 "js/content/templates/calendarButton.js",
                 "js/content/templates/restButton.js",
+                "js/content/templates/warningCalendarIcon.js",
                 "js/content/Classes/ActivityDay.js",
                 "js/content/Classes/RestDay.js",
                 "js/content/scripts/icsGenerator.js",
                 "js/content/scripts/workingDay.js",
                 "js/content/scripts/restingDay.js",
+                "js/content/scripts/surveyorActivities.js",
                 "js/content/content.js"
             ]
         }
@@ -46,6 +52,7 @@
         {
             "resources": [
                 "assets/calendrier-24.png",
+                "assets/calendrier-warn-24.png",
                 "js/content/scripts/pageNetworkInterceptor.js"
             ],
             "matches": ["https://srv-voitures.ml.tcl.fr/*"]
