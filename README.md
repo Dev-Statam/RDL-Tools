@@ -10,8 +10,8 @@ Ce projet est publié sous licence [AGPLv3](LICENSE).
 
 ## Documentation
 
-- [Page de présentation GitHub Pages](docs/index.html)
-- [A l'attention des contributeurs](docs/contributeurs.html)
+- [Page de présentation GitHub Pages](https://dev-statam.github.io/RDL-Tools/)
+- [A l'attention des contributeurs](https://dev-statam.github.io/RDL-Tools/contributeurs.html)
 
 ## Installation
 
