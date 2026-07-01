@@ -17,11 +17,11 @@ Ce projet est publié sous licence [AGPLv3](LICENSE).
 
 - Chrome Web Store : https://<chrome-web-store-placeholder>
 - Firefox Add-ons : https://<firefox-addons-placeholder>
-- Versions empaquetées : consultez les [releases GitHub](https://github.com/OWNER/REPO/releases)
+- Versions empaquetées : consultez les [releases GitHub](https://github.com/Dev-Statam/RDL-Tools/releases)
 
 ## Versions publiées
 
-Les dernières archives empaquetées pour Chrome et Firefox, ainsi que les versions précédentes, doivent être jointes aux [releases GitHub](https://github.com/OWNER/REPO/releases).
+Les dernières archives empaquetées pour Chrome et Firefox, ainsi que les versions précédentes, doivent être jointes aux [releases GitHub](https://github.com/Dev-Statam/RDL-Tools/releases).
 
 ## Attribution
 

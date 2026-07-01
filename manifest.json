@@ -3,6 +3,7 @@
     "name": "RDL Tools",
     "author": "Steve Amat",
     "version": "3.0",
+    "homepage_url": "https://github.com/Dev-Statam/RDL-Tools",
 
     "description": "Extension qui permet de créer des fichiers .ics de ses jours de travail et de repos afin de les ajouter à son calendrier. Cette extension est destinée aux salariés RD Lyon ayant accès à l'appli web Services Voitures En Mobilité.",
 
