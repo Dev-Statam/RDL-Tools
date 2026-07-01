@@ -15,8 +15,8 @@ Ce projet est publié sous licence [AGPLv3](LICENSE).
 
 ## Installation
 
-- Chrome Web Store : https://<chrome-web-store-placeholder>
-- Firefox Add-ons : https://<firefox-addons-placeholder>
+- Chrome Web Store : https://<chrome-web-store-placeholder> (en cours de validation)
+- Firefox Add-ons : https://addons.mozilla.org/fr/firefox/addon/rdl-tools/ (en cours de validation)
 - Versions empaquetées : consultez les [releases GitHub](https://github.com/Dev-Statam/RDL-Tools/releases)
 
 ## Versions publiées
