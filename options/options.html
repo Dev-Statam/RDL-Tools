@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>RDL Tools - Configuration</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <main class="settings-card">
+        <h1>Configuration RDL Tools</h1>
+        <p class="subtitle">Activez ou désactivez l'extension en un clic.</p>
+
+        <label class="toggle-row" for="extension-enabled">
+            <span class="toggle-label">Extension activée</span>
+            <input id="extension-enabled" class="toggle-checkbox" type="checkbox" aria-label="Activer l'extension">
+            <span class="toggle-ui" aria-hidden="true"></span>
+        </label>
+
+        <section id="surveyor-settings" class="sub-settings" hidden>
+            <label class="toggle-row" for="surveyor-enabled">
+                <span class="toggle-label with-help">
+                    Surveiller la modification des journées
+                    <span class="help-badge" tabindex="0" aria-label="Aide">?
+                        <span class="help-tooltip">Vous avertit si une journée a été modifier par l'ordonnancement depuis la dernière génération du fichier ICS</span>
+                    </span>
+                </span>
+                <input id="surveyor-enabled" class="toggle-checkbox" type="checkbox" aria-label="Surveiller la modification des journées">
+                <span class="toggle-ui" aria-hidden="true"></span>
+            </label>
+        </section>
+
+        <section id="activity-mapping-settings" class="sub-settings" hidden>
+            <h2>Personnalisation d'activités</h2>
+            <p class="subtitle-small">Modifiez les noms d'activités et les points de relève. Les valeurs par défaut peuvent être restaurées en cliquant sur "Restaurer".</p>
+
+            <div id="mapping-list" class="mapping-list"></div>
+
+            <div class="mapping-form">
+                <input id="mapping-input-key" type="text" placeholder="Nom de l'activité" maxlength="100">
+                <input id="mapping-input-value" type="text" placeholder="Raccourci (ou vide)" maxlength="15">
+                <div class="mapping-form-buttons">
+                    <button id="mapping-btn-add" type="button">Ajouter</button>
+                    <button id="mapping-btn-cancel" type="button" style="display: none;">Annuler</button>
+                </div>
+            </div>
+        </section>
+
+        <p id="save-status" class="status" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="../js/defaults.js"></script>
+    <script src="options.js"></script>
+</body>
+</html>

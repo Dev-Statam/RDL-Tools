@@ -19,6 +19,11 @@
         "storage"
     ],
 
+    "options_ui": {
+        "page": "options/options.html",
+        "open_in_tab": false
+    },
+
     "browser_specific_settings": {
         "gecko": {
             "id": "rdl-toolsV3@devstatam.fr",
@@ -32,6 +37,7 @@
         {
             "matches": ["https://srv-voitures.ml.tcl.fr/roulement"],
             "js": [
+                "js/defaults.js",
                 "js/content/scripts/networkBridge.js",
                 "js/content/scripts/utils.js",
                 "js/content/templates/calendarButton.js",

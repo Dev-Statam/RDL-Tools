@@ -5,8 +5,14 @@ const utils = {
     $tableauRoulementElement: document.getElementById('tableau_roulement_id'),
     storageKeys: {
         syncActivities: 'RDLToolsSynchedActivities',
-        localActivities: 'RDLToolsSavedActivities'
+        localActivities: 'RDLToolsSavedActivities',
+        extensionEnabled: 'RDLToolsExtensionEnabled',
+        surveyorEnabled: 'RDLToolsSurveyorEnabled',
+        customActivityMapping: 'RDLToolsCustomActivityMapping'
     },
+    _customActivityMapping: {},
+    _defaultActivityMapping: {},
+    _mergedActivityMapping: {},
     assets: {
         warningCalendarIcon: 'assets/calendrier-warn-24.png'
     },
@@ -27,23 +33,9 @@ const utils = {
         novembre: '11',
         décembre: '12'
     },
-    arrayActivityConvert: {
-        '(Aller)': null,
-        '(Retour)': null,
-        '(Sortie)': null,
-        '(Entrée)': null,
-        'Opération du véhicule': null,
-        'Dép. de l\'emplacement précédent': 'Rappat.',
-        'Dép. vers l\'emplacement suivant': 'Rappat.',
-        'Pièce de disponibilité habillage': 'Dispo.',
-        'DP_MEY': 'DZ',
-        'T_MEZI': 'Q4',
-        'T_PDVA': 'V1',
-        'T_PDVD': 'V2',
-        'T1_DO2': 'DD',
-        'T_LASO': 'VS'
-    },
-    restCode: ['RN', 'RHE', 'HEC', 'CA', 'RX', 'FL', 'LN'],
+    // Référence les défauts définis dans js/defaults.js
+    arrayActivityConvert: DEFAULT_ACTIVITY_MAPPING,
+    restCode: ['RN', 'RHE', 'HEC', 'CA', 'RX', 'FL', 'LN', 'RCR'],
 
     // Mapping inverse pour convertir rapidement les chiffres en mois texte
     _digitToMonthMap: {
@@ -53,11 +45,44 @@ const utils = {
     },
 
     textConverter(textToConvert) {
-        if (utils.arrayActivityConvert[textToConvert] === null || utils.arrayActivityConvert[textToConvert] === '') {
-            return '';
+        const mapping = utils._mergedActivityMapping;
+        const lowerTextToConvert = textToConvert.toLowerCase();
+        
+        // Recherche insensible à la casse, mais retourne la valeur stockée avec la casse originale
+        for (const key of Object.keys(mapping)) {
+            if (key.toLowerCase() === lowerTextToConvert) {
+                const value = mapping[key];
+                if (value === null || value === '') {
+                    return '';
+                }
+                return value;
+            }
         }
+        
+        return textToConvert;
+    },
 
-        return utils.arrayActivityConvert[textToConvert] || textToConvert;
+    async initActivityMapping() {
+        try {
+            utils._defaultActivityMapping = { ...utils.arrayActivityConvert };
+            const storedKey = utils.storageKeys.customActivityMapping;
+            const storedValues = await utils.extensionApi.storage.sync.get(storedKey);
+            const customMapping = storedValues && storedValues[storedKey];
+            
+            if (customMapping && typeof customMapping === 'object') {
+                utils._customActivityMapping = customMapping;
+            } else {
+                utils._customActivityMapping = {};
+            }
+
+            utils._mergedActivityMapping = {
+                ...utils._defaultActivityMapping,
+                ...utils._customActivityMapping
+            };
+        } catch (error) {
+            console.warn('[RDL Tools] Erreur lors de l\'initialisation du mapping d\'activités :', error);
+            utils._mergedActivityMapping = { ...utils.arrayActivityConvert };
+        }
     },
 
     convertDigitMonthToText(monthDigit) {
