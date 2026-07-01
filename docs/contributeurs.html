@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>RDL Tools - A l'attention des contributeurs</title>
+    <meta name="description" content="Repères techniques pour contribuer à RDL Tools.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🧩</span>
+                <span>A l'attention des contributeurs</span>
+            </a>
+            <nav class="nav" aria-label="Navigation principale">
+                <a href="index.html">Accueil</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#donnees">Données</a>
+                <a href="#regles">Règles</a>
+                <a href="#contribution">Contribution</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero">
+            <div class="hero-card">
+                <div class="hero-grid">
+                    <div>
+                        <span class="kicker">🛠️ Guide pour les développeurs</span>
+                        <h1>Comprendre vite le flux de RDL Tools avant de modifier le code.</h1>
+                        <p class="lead">
+                            Cette page résume les points qui comptent pour contribuer sans casser le comportement métier : ordre des scripts, insertion des boutons, surveillance du roulement et gestion des préférences.
+                        </p>
+                    </div>
+                    <aside class="hero-panel">
+                        <h2>Points de vigilance</h2>
+                        <ul>
+                            <li>L'ordre des scripts dans <strong>manifest.json</strong> est important.</li>
+                            <li>Les boutons et la logique ICS sont injectés côté contenu.</li>
+                            <li>Les réglages passent par le stockage du navigateur.</li>
+                            <li>Le périmètre reste limité aux journées affichées par Service Voiture.</li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="architecture">
+            <div class="section-card">
+                <h2>🏗️ Architecture fonctionnelle</h2>
+                <div class="cards-grid">
+                    <div class="info-card">
+                        <h3>Point d'entrée</h3>
+                        <p>
+                            <strong>js/content/content.js</strong> orchestre l'initialisation, récupère les réglages, installe les écouteurs et ajoute les boutons dans la page Service Voiture.
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Utilitaires partagés</h3>
+                        <p>
+                            <strong>js/content/scripts/utils.js</strong> centralise les clés de stockage, les aides de date, le texte d'alerte et les fonctions réutilisées par plusieurs modules.
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Génération ICS</h3>
+                        <p>
+                            Les classes <strong>ActivityDay</strong> et <strong>RestDay</strong> servent de structure aux données consommées par le générateur ICS.
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Détection des changements</h3>
+                        <p>
+                            <strong>surveyorActivities.js</strong> observe les activités, les persistances et les modifications du roulement pour signaler les journées qui ont changé.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="donnees">
+            <div class="section-card">
+                <h2>📚 Données et stockage</h2>
+                <div class="two-col">
+                    <div class="feature-card">
+                        <h3>Clés actuelles</h3>
+                        <ul class="list">
+                            <li><strong>RDLToolsSynchedActivities</strong> dans storage.sync</li>
+                            <li><strong>RDLToolsSavedActivities</strong> dans localStorage</li>
+                            <li><strong>RDLToolsExtensionEnabled</strong> pour activer ou désactiver l'extension</li>
+                            <li><strong>RDLToolsSurveyorEnabled</strong> pour activer la surveillance des journées</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Règle pratique</h3>
+                        <p>
+                            Si vous ajoutez une nouvelle donnée persistée, choisissez d'abord si elle doit suivre la synchronisation du navigateur ou rester locale.
+                            Cela évite les comportements inattendus entre plusieurs appareils.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="regles">
+            <div class="section-card">
+                <h2>🔎 Règles à respecter</h2>
+                <div class="cards-grid">
+                    <div class="download-card">
+                        <h3>1. Ne pas casser l'ordre des scripts</h3>
+                        <p>
+                            Le manifest charge les scripts dans un ordre précis. Les utilitaires doivent rester avant <strong>content.js</strong>, sinon l'initialisation peut échouer.
+                        </p>
+                    </div>
+                    <div class="download-card">
+                        <h3>2. Garder le périmètre métier</h3>
+                        <p>
+                            L'extension ne doit traiter que les journées affichées par Service Voiture. Évitez d'ajouter des sources de données externes sans besoin clair.
+                        </p>
+                    </div>
+                    <div class="download-card">
+                        <h3>3. Préserver la compatibilité navigateur</h3>
+                        <p>
+                            Vérifiez les modifications dans Chrome, Firefox et Firefox Mobile Android lorsque la fonctionnalité touchée dépend de l'interface ou du stockage.
+                        </p>
+                    </div>
+                    <div class="download-card">
+                        <h3>4. Rester lisible</h3>
+                        <p>
+                            Les fichiers ont déjà une séparation claire entre template, logique métier, surveillance et options. Suivez cette organisation plutôt que de la mélanger.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contribution">
+            <div class="section-card">
+                <h2>🤝 Comment contribuer</h2>
+                <div class="two-col">
+                    <div class="info-card">
+                        <h3>Avant de coder</h3>
+                        <ul class="list">
+                            <li>Lisez <strong>manifest.json</strong> pour comprendre le chargement des modules.</li>
+                            <li>Regardez <strong>options/options.html</strong> pour les libellés de configuration.</li>
+                            <li>Repérez les points d'injection dans <strong>content.js</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Après modification</h3>
+                        <ul class="list">
+                            <li>Testez l'ajout du bouton de journée et du bouton de repos.</li>
+                            <li>Vérifiez la génération ICS et la détection des changements.</li>
+                            <li>Confirmez que les options restent cohérentes entre les navigateurs ciblés.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="callout">
+                    🧪 Bon réflexe : si vous touchez à la détection ou au stockage, validez d'abord le cas le plus simple, puis le cas avec personnalisation activée.
+                </div>
+                <div class="button-row">
+                    <a class="button primary" href="index.html">Retour à l'accueil</a>
+                    <a class="button secondary" href="../README.md">Voir le README</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-card">
+                Merci de conserver les attributions existantes, de documenter vos changements et de publier vos améliorations sous la même licence AGPLv3 ou ultérieure.
+            </div>
+        </footer>
+    </main>
+</body>
+</html>

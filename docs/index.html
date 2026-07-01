@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>RDL Tools - Présentation</title>
+    <meta name="description" content="RDL Tools génère des fichiers ICS à partir des journées de travail et de repos affichées par Service Voiture en Mobilité.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🗓️</span>
+                <span>RDL Tools</span>
+            </a>
+            <nav class="nav" aria-label="Navigation principale">
+                <a href="#avant-propos">Avant-propos</a>
+                <a href="#fonctionnement">Fonctionnement</a>
+                <a href="#installation">Installation</a>
+                <a href="#versions">Versions</a>
+                <a href="contributeurs.html">A l'attention des contributeurs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero">
+            <div class="hero-card">
+                <div class="hero-grid">
+                    <div>
+                        <span class="kicker">⚡ Extension navigateur pour Service Voiture En Mobilité</span>
+                        <h1>Exportez vos journées en ICS, puis gardez vos agendas personnels synchronisés.</h1>
+                        <p class="lead">
+                            RDL Tools s'adresse aux salariés RD Lyon ayant accès à l'application Service Voiture En Mobilité.
+                            L'extension transforme les journées affichées dans le roulement en fichiers ICS compatibles avec la majorité des agendas.
+                        </p>
+                        <div class="hero-meta">
+                            <span class="pill">🦊 Firefox</span>
+                            <span class="pill">🌐 Chrome</span>
+                            <span class="pill">📱 Firefox Mobile Android</span>
+                            <span class="pill">🔄 Synchronisation des réglages</span>
+                        </div>
+                    </div>
+                    <aside class="hero-panel">
+                        <h2>En une phrase</h2>
+                        <ul>
+                            <li>Création de fichiers ICS à partir des jours de travail et de repos affichés par Service Voiture.</li>
+                            <li>Export local, compatible avec la plupart des agendas : Google Calendar, Outlook, Apple Calendar, etc.</li>
+                            <li>Limitation volontaire aux journées visibles dans l'interface Service Voiture.</li>
+                            <li>Les paramètres et personnalisations peuvent suivre la synchronisation du navigateur quand elle est activée.</li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="avant-propos">
+            <div class="section-card">
+                <h2>📌 Avant-propos</h2>
+                <p class="section-intro">
+                    Cette extension est destinée aux salariés RD Lyon ayant accès au site Service Voiture En Mobilité.
+                    Elle n'essaie pas d'étendre les données du site au-delà de ce qui est affiché à l'écran.
+                </p>
+                <div class="two-col">
+                    <div class="info-card">
+                        <h3>Ce que fait l'extension</h3>
+                        <p>
+                            Elle crée des fichiers ICS pour enregistrer vos jours de travail et de repos dans vos agendas personnels.
+                            Ce format est compatible avec la grande majorité des agendas modernes.
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Ce qu'elle ne fait pas</h3>
+                        <p>
+                            Elle ne récupère pas d'historique externe et ne s'appuie que sur les journées visibles dans Service Voiture.
+                            Cela limite le périmètre à ce que le service affiche réellement dans le roulement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="fonctionnement">
+            <div class="section-card">
+                <h2>🧭 Notice explicative</h2>
+                <p class="section-intro">
+                    Les captures ci-dessous montrent les points d'entrée principaux de l'extension et le panneau d'options.
+                </p>
+
+                <div class="figure-grid">
+                    <figure>
+                        <img src="images/boutton-journee.jpg" alt="Bouton d'ajout à l'agenda dans la fenêtre d'une journée">
+                        <figcaption>
+                            <strong>Bouton de journée</strong><br>
+                            Dans la fenêtre d'une journée, ce bouton génère puis télécharge un fichier ICS contenant la journée de travail affichée.
+                        </figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/boutton-repos.jpg" alt="Bouton d'ajout des jours de repos au calendrier">
+                        <figcaption>
+                            <strong>Bouton des repos</strong><br>
+                            En haut de la liste des journées, ce bouton crée et télécharge un ICS regroupant les jours de repos visibles.
+                        </figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/menu-options.jpg" alt="Menu d'options de l'extension">
+                        <figcaption>
+                            <strong>Menu d'options</strong><br>
+                            Le panneau d'options permet d'activer l'extension, de surveiller les changements de journées et de personnaliser les activités.
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="callout">
+                    ✨ La surveillance des journées avertit lorsque le roulement a été modifié depuis la dernière génération ICS, afin d'éviter d'importer des données obsolètes.
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-card">
+                <h2>⚙️ Accès aux options selon le navigateur</h2>
+                <div class="cards-grid">
+                    <div class="feature-card">
+                        <h3>Chrome</h3>
+                        <p>
+                            Ouvrez le menu principal, puis <strong>Extensions</strong> et la fiche de RDL Tools, ou utilisez l'icône de l'extension pour accéder à ses réglages.
+                            Sur la page dédiée, le bouton d'options ouvre directement la configuration.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Firefox</h3>
+                        <p>
+                            Ouvrez le menu principal, puis <strong>Modules complémentaires et thèmes</strong>, sélectionnez RDL Tools, puis ouvrez ses options.
+                            Le panneau de configuration reprend les mêmes réglages que sur Chrome.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Firefox pour Android</h3>
+                        <p>
+                            Dans Firefox Mobile, allez dans le menu de l'application, puis la section des modules complémentaires.
+                            Choisissez RDL Tools pour ouvrir ses préférences lorsque l'environnement mobile le permet.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Synchronisation entre appareils</h3>
+                        <p>
+                            Les réglages synchronisables du navigateur peuvent suivre votre compte navigateur.
+                            Cela facilite l'usage de l'extension sur plusieurs appareils sans reconfigurer chaque préférence à la main.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="installation">
+            <div class="section-card">
+                <h2>📦 Installation</h2>
+                <p class="section-intro">
+                    Deux voies sont prévues : l'installation depuis les stores officiels et l'installation d'archives empaquetées.
+                </p>
+
+                <div class="download-links">
+                    <div class="download-card">
+                        <h3>Depuis les stores</h3>
+                        <p>
+                            Chrome Web Store : <a href="https://chromewebstore.google.com/detail/PLACEHOLDER" target="_blank" rel="noreferrer">lien à remplacer</a><br>
+                            Firefox Add-ons : <a href="https://addons.mozilla.org/firefox/addon/PLACEHOLDER/" target="_blank" rel="noreferrer">lien à remplacer</a>
+                        </p>
+                    </div>
+                    <div class="download-card">
+                        <h3>Depuis une archive empaquetée</h3>
+                        <p>
+                            Téléchargez l'archive Chrome ou Firefox depuis les releases GitHub, puis chargez-la via la procédure d'installation de votre navigateur.
+                            Les versions précédentes restent archivées dans l'historique des releases.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="versions">
+            <div class="section-card">
+                <h2>🗂️ Versions empaquetées</h2>
+                <p class="section-intro">
+                    La page GitHub peut héberger les dernières archives empaquetées pour Chrome et Firefox, ainsi que les versions antérieures via les GitHub Releases.
+                </p>
+                <div class="two-col">
+                    <div class="info-card">
+                        <h3>Dernières versions</h3>
+                        <ul class="list">
+                            <li>Archive Chrome : à publier dans les assets de release.</li>
+                            <li>Archive Firefox : à publier dans les assets de release.</li>
+                            <li>La release marquée « latest » sert de point d'entrée principal.</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Versions précédentes</h3>
+                        <ul class="list">
+                            <li>Gardez les anciennes archives dans l'historique des releases.</li>
+                            <li>Ajoutez un changelog court pour identifier rapidement les différences.</li>
+                            <li>Conservez les fichiers signés ou empaquetés selon le navigateur ciblé.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="button-row">
+                    <a class="button primary" href="contributeurs.html">Voir la page contributeurs</a>
+                    <a class="button secondary" href="https://github.com/OWNER/REPO/releases" target="_blank" rel="noreferrer">Ouvrir les releases GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-card">
+                RDL Tools est publié sous AGPLv3. Auteur principal : Steve Amat. Cette documentation peut être ajustée lorsque les liens des stores et du dépôt GitHub seront disponibles.
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
