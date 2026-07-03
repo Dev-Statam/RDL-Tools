@@ -8,6 +8,10 @@ Elle permet de générer des fichiers ICS à partir des journées de travail et 
 
 Ce projet est publié sous licence [AGPLv3](LICENSE).
 
+## Contribuer
+
+- [Guide des contributeurs](CONTRIBUTING.md) — architecture, modules, conventions de nommage et récupération des données réseau.
+
 ## Documentation
 
 - [Page de présentation GitHub Pages](https://dev-statam.github.io/RDL-Tools/)
