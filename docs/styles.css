@@ -271,6 +271,49 @@ h1 {
     color: #6b4520;
 }
 
+.surveillance-callout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+    align-items: center;
+    margin: 6px 0 20px;
+    padding: 20px;
+    border-radius: 22px;
+    background: white;
+    border: 1px solid rgba(18, 32, 24, 0.08);
+}
+
+.surveillance-copy h3 {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.surveillance-copy p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.surveillance-figure {
+    margin: 0;
+    background: linear-gradient(135deg, rgba(15, 122, 87, 0.08), rgba(255, 184, 107, 0.12));
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(18, 32, 24, 0.08);
+}
+
+.surveillance-figure img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.surveillance-figure figcaption {
+    padding: 12px 14px 14px;
+    font-size: 0.94rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
 .figure-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -362,6 +405,7 @@ figure figcaption {
     .hero-grid,
     .cards-grid,
     .two-col,
+    .surveillance-callout,
     .figure-grid {
         grid-template-columns: 1fr;
     }

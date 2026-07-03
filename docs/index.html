@@ -38,6 +38,8 @@
                         <div class="hero-meta">
                             <span class="pill">🦊 Firefox</span>
                             <span class="pill">🌐 Chrome</span>
+                            <span class="pill">🟦 Edge</span>
+                            <span class="pill">🌀 Opera</span>
                             <span class="pill">📱 Firefox Mobile Android</span>
                             <span class="pill">🔄 Synchronisation des réglages</span>
                         </div>
@@ -47,6 +49,7 @@
                         <ul>
                             <li>Création de fichiers ICS à partir des jours de travail et de repos affichés par Service Voiture.</li>
                             <li>Export local, compatible avec la plupart des agendas : Google Calendar, Outlook, Apple Calendar, etc.</li>
+                            <li>Disponible aussi sur Edge et Opera : installez simplement depuis le Chrome Web Store ou utilisez l'archive si vous préférez une installation manuelle.</li>
                             <li>Limitation volontaire aux journées visibles dans l'interface Service Voiture.</li>
                             <li>Les paramètres et personnalisations peuvent suivre la synchronisation du navigateur quand elle est activée.</li>
                         </ul>
@@ -64,17 +67,20 @@
                 </p>
                 <div class="two-col">
                     <div class="info-card">
-                        <h3>Ce que fait l'extension</h3>
+                        <h3>✅ Ce que fait l'extension</h3>
                         <p>
                             Elle crée des fichiers ICS pour enregistrer vos jours de travail et de repos dans vos agendas personnels.
                             Ce format est compatible avec la grande majorité des agendas modernes.
+                            Elle surveille les journées affichées pour signaler toute modification depuis la dernière génération d'ICS (optionnel).
                         </p>
                     </div>
                     <div class="info-card">
-                        <h3>Ce qu'elle ne fait pas</h3>
+                        <h3>❌ Ce qu'elle ne fait pas</h3>
                         <p>
                             Elle ne récupère pas d'historique externe et ne s'appuie que sur les journées visibles dans Service Voiture.
-                            Cela limite le périmètre à ce que le service affiche réellement dans le roulement.
+                            Elle ne permet pas de poser des jours de congés, ni de faire des demandes de permutation.
+                            Elle ne modifie pas les informations affichées.
+                            Elle ne récupère aucune donnée personnelle et ne transmet rien à un serveur externe.
                         </p>
                     </div>
                 </div>
@@ -112,8 +118,19 @@
                     </figure>
                 </div>
 
-                <div class="callout">
-                    ✨ La surveillance des journées avertit lorsque le roulement a été modifié depuis la dernière génération ICS, afin d'éviter d'importer des données obsolètes.
+                <div class="surveillance-callout">
+                    <div class="surveillance-copy">
+                        <h3>Surveillance des journées</h3>
+                        <p>
+                            RDL Tools compare les journées enregistrées avec le roulement affiché pour signaler une modification de la journée depuis la dernière génération d'ICS.
+                        </p>
+                    </div>
+                    <figure class="surveillance-figure">
+                        <img src="images/surveyor-warning.jpg" alt="Avertissement visuel de surveillance des journées quand le roulement a changé">
+                        <figcaption>
+                            Avertissement affiché lorsqu'une journée a changé depuis le dernier enregistrement.
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
         </section>
@@ -125,8 +142,22 @@
                     <div class="feature-card">
                         <h3>Chrome</h3>
                         <p>
-                            Ouvrez le menu principal, puis <strong>Extensions</strong> et la fiche de RDL Tools, ou utilisez l'icône de l'extension pour accéder à ses réglages.
-                            Sur la page dédiée, le bouton d'options ouvre directement la configuration.
+                            Ouvrez le menu principal, puis <strong>Extensions</strong> et la fiche de RDL Tools.
+                            Le bouton <strong>Options de l'extension</strong> permet d'accéder immédiatement à la configuration.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Edge</h3>
+                        <p>
+                            Ouvrez le menu principal, puis <strong>Extensions</strong>, sélectionnez RDL Tools et cliquez sur <strong>Options de l'extension</strong>.
+                            Si l'icône est épinglée, l'accès aux réglages est encore plus rapide.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Opera</h3>
+                        <p>
+                            Ouvrez le menu navigateur, puis <strong>Extensions</strong>, choisissez RDL Tools et ouvrez ses <strong>options</strong>.
+                            Vous pouvez aussi passer par l'icône de la barre d'outils pour aller directement aux réglages.
                         </p>
                     </div>
                     <div class="feature-card">
@@ -159,6 +190,8 @@
                 <h2>📦 Installation</h2>
                 <p class="section-intro">
                     Deux voies sont prévues : l'installation depuis les stores officiels et l'installation d'archives empaquetées.
+                    Les versions Chrome fonctionnent aussi sur Edge et Opera : installation depuis le Chrome Web Store ou installation manuelle via l'archive selon vos préférences.
+                    L'installation via les stores officiels est recommandée pour profiter des mises à jour automatiques.
                 </p>
 
                 <div class="download-links">
@@ -166,14 +199,17 @@
                         <h3>Depuis les stores</h3>
                         <p>
                             Chrome Web Store : <a href="https://chromewebstore.google.com/detail/mbpkkkgagjibgcmnjnbacfhecanjkckg?utm_source=item-share-cb" target="_blank" rel="noreferrer">ouvrir sur Chrome Web Store</a><br>
+                            Edge : <a href="https://chromewebstore.google.com/detail/mbpkkkgagjibgcmnjnbacfhecanjkckg?utm_source=item-share-cb" target="_blank" rel="noreferrer">installer depuis Chrome Web Store</a><br>
+                            Opera : <a href="https://chromewebstore.google.com/detail/mbpkkkgagjibgcmnjnbacfhecanjkckg?utm_source=item-share-cb" target="_blank" rel="noreferrer">installer depuis Chrome Web Store</a><br>
                             Firefox Add-ons : <a href="https://addons.mozilla.org/fr/firefox/addon/rdl-tools/" target="_blank" rel="noreferrer">ouvrir sur AMO</a>
+                            <br>Avantage : les mises à jour de l'extension sont déployées automatiquement via le store.
                         </p>
                     </div>
                     <div class="download-card">
                         <h3>Depuis une archive empaquetée</h3>
                         <p>
-                            Téléchargez l'archive Chrome ou Firefox depuis les releases GitHub, puis chargez-la via la procédure d'installation de votre navigateur.
-                            Les versions précédentes restent archivées dans l'historique des releases.
+                            Téléchargez l'archive Chrome, Edge, Opera ou Firefox depuis les releases GitHub, puis chargez-la via la procédure d'installation de votre navigateur.
+                            Les versions Chrome sont compatibles avec Edge et Opera pour une installation manuelle, destinée aux utilisateurs expérimentés.
                         </p>
                     </div>
                 </div>
@@ -184,21 +220,23 @@
             <div class="section-card">
                 <h2>🗂️ Versions empaquetées</h2>
                 <p class="section-intro">
-                    La page GitHub peut héberger les dernières archives empaquetées pour Chrome et Firefox, ainsi que les versions antérieures via les GitHub Releases.
+                    La page GitHub peut héberger les dernières archives empaquetées pour Chrome, Edge, Opera et Firefox, ainsi que les versions antérieures via les GitHub Releases.
                 </p>
                 <div class="two-col">
                     <div class="info-card">
                         <h3>Dernières versions</h3>
                         <ul class="list">
-                            <li>Archive Chrome : <a href="https://github.com/Dev-Statam/RDL-Tools/releases/tag/v3.0-Chrome" terget="_blank" rel="noreferrer">RDL Tools 3.0</a></li>
+                            <li>Archive Chrome : <a href="https://github.com/Dev-Statam/RDL-Tools/releases/tag/v3.0-Chrome" target="_blank" rel="noreferrer">RDL Tools 3.0</a></li>
+                            <li>Archive Edge : compatible avec l'archive Chrome, pour installation manuelle.</li>
+                            <li>Archive Opera : compatible avec l'archive Chrome, pour installation manuelle.</li>
                             <li>Archive Firefox : à publier dans les assets de release.</li>
                         </ul>
                     </div>
                     <div class="info-card">
                         <h3>Versions précédentes</h3>
                         <ul class="list">
-                            <li>Archives Firefox : [<a href="https://github.com/Dev-Statam/RDL-Tools/releases/tag/v2.0" terget="_blank" rel="noreferrer">RDL Tools 2.0</a>] [<a href="https://github.com/Dev-Statam/RDL-Tools/releases/tag/v2.1" terget="_blank" rel="noreferrer">RDL Tools 2.1</a>]</li>
-                            <li>Retrouvez toutes les versions précédentes dans les <a href="https://github.com/Dev-Statam/RDL-Tools/releases/" terget="_blank" rel="noreferrer">Github Releases</a></li>
+                            <li>Archives Firefox : [<a href="https://github.com/Dev-Statam/RDL-Tools/releases/tag/v2.0" target="_blank" rel="noreferrer">RDL Tools 2.0</a>] [<a href="https://github.com/Dev-Statam/RDL-Tools/releases/tag/v2.1" target="_blank" rel="noreferrer">RDL Tools 2.1</a>]</li>
+                            <li>Retrouvez toutes les versions précédentes dans les <a href="https://github.com/Dev-Statam/RDL-Tools/releases/" target="_blank" rel="noreferrer">GitHub Releases</a></li>
                         </ul>
                     </div>
                 </div>
