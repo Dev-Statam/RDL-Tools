@@ -22,7 +22,7 @@ Ce projet est publié sous licence [AGPLv3](LICENSE).
 - Chrome Web Store : [RDL Tools 3.0](https://chromewebstore.google.com/detail/mbpkkkgagjibgcmnjnbacfhecanjkckg?utm_source=item-share-cb)
 - Edge : installation possible depuis le Chrome Web Store, avec compatibilité basée sur Chromium.
 - Opera : installation possible depuis le Chrome Web Store, avec compatibilité basée sur Chromium.
-- Firefox Add-ons : [RDL Tools 3.0](https://addons.mozilla.org/fr/firefox/addon/rdl-tools/) (en cours de validation)
+- Firefox Add-ons : [RDL Tools 3.0](https://addons.mozilla.org/fr/firefox/addon/rdl-tools/)
 - Installation recommandée via les stores officiels pour bénéficier des mises à jour automatiques.
 - Versions empaquetées : consultez les [releases GitHub](https://github.com/Dev-Statam/RDL-Tools/releases)
 
